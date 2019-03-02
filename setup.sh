@@ -11,7 +11,7 @@ CHOICES=$(./tasks.sh `pwd` "Choose initialization tasks")
 # invoke all subtasks chosen
 for task in $CHOICES ; do
     dir=$(dirname "$task")
-    echo -e "\e[1;96mEnter $dir"
+    echo -e "\e[1;96mEnter $dir\e[0m"
     pushd "$dir"
     ./setup.sh
     popd
