@@ -5,7 +5,7 @@
 # From https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
 # Ask user what containers to create
-CHOICES=$(./tasks.sh `pwd` "Choose Docker containers to create")
+CHOICES=$(../tasks.sh `pwd` "Choose Docker containers to create")
 
 # Install packages to allow apt to use a repository over HTTPS:
 sudo apt install \
