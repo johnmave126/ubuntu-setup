@@ -15,3 +15,4 @@ vim +PluginInstall +qall
 # Setup YCM
 pushd ~/.vim/bundle/YouCompleteMe
 python3 install.py --all
+popd
