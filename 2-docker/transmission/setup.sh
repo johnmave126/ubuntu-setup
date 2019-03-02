@@ -2,6 +2,8 @@
 #
 # Install transmission
 
+echo -e "\e[1m[docker/transmission] \e[21;96minstall transmission\e[0m"
+tput smcup
 # Ask for root directory
 TRANSMISSION_ROOT="$HOME/transmission"
 read -p "Enter desired transmission root directory (default $TRANSMISSION_ROOT): " USER_ROOT
@@ -39,3 +41,4 @@ sudo ufw reload
 
 # start container
 docker start transmission
+tput rmcup
