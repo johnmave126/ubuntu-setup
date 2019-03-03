@@ -45,3 +45,5 @@ for task in $CHOICES ; do
     ./setup.sh
     popd >/dev/null
 done
+
+echo -e "\e[1m[docker] \e[0m\e[96mdone\e[0m"
