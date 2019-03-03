@@ -69,3 +69,6 @@ server {
 }
 EOF
 docker cp $TMPFILE nginx:/etc/letsencrypt/$DOMAIN.conf
+
+# reload nginx
+docker exec nginx nginx -s reload
