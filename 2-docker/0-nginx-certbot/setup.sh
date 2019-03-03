@@ -6,7 +6,7 @@
 # start docker app
 echo -e "\e[1m[docker/nginx-certbot] \e[0m\e[96minstall NGINX and certbot in a container\e[0m"
 tput smcup
-docker-compose up
+docker-compose up -d
 tput rmcup
 
 # copy default site conf
