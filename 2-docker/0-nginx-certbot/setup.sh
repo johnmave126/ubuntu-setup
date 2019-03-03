@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Install NGINX and certbot
-
+# adapted from https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71
 
 # start docker app
 echo -e "\e[1m[docker/nginx-certbot] \e[0m\e[96minstall NGINX and certbot in a container\e[0m"
