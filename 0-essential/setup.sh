@@ -3,14 +3,14 @@
 # Basic system preparation
 
 # Install basic packages
-echo -e "\e[1m[essential] \e[21;96minstall essential packages\e[0m"
+echo -e "\e[1m[essential] \e[0m\e[96minstall essential packages\e[0m"
 tput smcup
 sudo apt install -y build-essential cmake curl python python3-dev gnupg ca-certificates net-tools ssh iotop
 tput rmcup
 
 
 # remove Chinese and Quovadis certificates from ca-certificates
-echo -e "\e[1m[essential] \e[21;96mremove untrusted certificates\e[0m"
+echo -e "\e[1m[essential] \e[0m\e[96mremove untrusted certificates\e[0m"
 tput smcup
 # To match line in /etc/ca-certificates.conf
 BAD_CERT="QuoVadis_Root_CA"
@@ -47,4 +47,5 @@ done < /etc/ca-certificates.conf
 sudo mv "$TMPFILE" /etc/ca-certificates.conf
 sudo update-ca-certificates
 tput rmcup
-echo -e "\e[1m[essential] \e[21;96mdone\e[0m"
+
+echo -e "\e[1m[essential] \e[0m\e[96mdone\e[0m"

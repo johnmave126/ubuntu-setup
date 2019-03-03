@@ -2,7 +2,7 @@
 #
 # Install transmission
 
-echo -e "\e[1m[docker/transmission] \e[21;96minstall transmission\e[0m"
+echo -e "\e[1m[docker/transmission] \e[0m\e[96minstall transmission\e[0m"
 tput smcup
 # Ask for root directory
 TRANSMISSION_ROOT="$HOME/transmission"
