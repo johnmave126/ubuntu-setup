@@ -4,8 +4,8 @@
 
 display_usage() { 
     echo "Register a new site and request a new certificate." 
-    echo -e "\nUsage:\n$0 host:port domain\n"
-    echo "  host:port    connection string for the site"
+    echo -e "\nUsage:\n$0 url domain\n"
+    echo "  url          connection string for the site"
     echo "  domain       domain name for the site"
 }
 
@@ -47,18 +47,11 @@ docker exec -ti certbot certbot certonly --webroot -w /var/www/certbot \
 TMPFILE=`mktemp -t XXXXXXXX.conf`
 cat >$TMPFILE <<EOF
 server {
-    listen 80;
-    server_name ${DOMAIN};
-    location / {
-        return 301 https://\$host\$request_uri;
-    }    
-}
-server {
     listen 443 ssl;
     server_name ${DOMAIN};
     
     location / {
-        proxy_pass ${CONNECTION}
+        proxy_pass ${CONNECTION};
     }
 
     ssl_certificate /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
