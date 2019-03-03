@@ -4,6 +4,7 @@
 
 # obtain sudo privilege
 dummy=$(sudo whoami)
+umask 022
 
 # generate log
 RANDOM=$$
