@@ -7,7 +7,7 @@ tput smcup
 # Ask for root directory
 TRANSMISSION_ROOT="$HOME/transmission"
 read -p "Enter desired transmission root directory (default $TRANSMISSION_ROOT): " USER_ROOT
-if [[ -z "$USER_ROOT" ]]; then
+if [[ ! -z "$USER_ROOT" ]]; then
     TRANSMISSION_ROOT="$USER_ROOT"
 fi
 mkdir -p $TRANSMISSION_ROOT/data $TRANSMISSION_ROOT/downloads $TRANSMISSION_ROOT/watch
