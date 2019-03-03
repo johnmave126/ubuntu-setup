@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# create a boilerplate docker-compose.yml of a web service that can communicate with nginx
+
+cat >docker-compose.yml <<EOF
+version: '3'
+
+services:
+  web:
+    build: .
+    container_name: 
+    networks:
+      - outside
+      - default
+
+networks:
+  outside:
+    external:
+        name: nginx-certbot-network
+EOF

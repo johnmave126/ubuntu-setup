@@ -1,0 +1,71 @@
+#!/bin/bash
+#
+# Register a new site and request a new certificate
+
+display_usage() { 
+    echo "Register a new site and request a new certificate." 
+    echo -e "\nUsage:\n$0 host:port domain\n"
+    echo "  host:port    connection string for the site"
+    echo "  domain       domain name for the site"
+}
+
+# check whether user had supplied -h or --help . If yes display usage
+if [[ $1 == "--help" ||  $1 == "-h" ]]; then
+    display_usage
+    exit 0
+fi
+
+# if less than two arguments supplied, display usage
+if [[  $# -ne 2 ]]; then
+    echo -e "Expect 2 arguments, $# given\n"
+    display_usage
+    exit 1
+fi
+
+CONNECTION=$1
+DOMAIN=$2
+
+# ask for user's email address
+EMAIL_ARG=''
+read -p "Enter email for let's encrypt service: " USER_INPUT
+if [[ -z "$USER_INPUT" ]]; then
+    echo "Warning: unsafely register without email"
+    EMAIL_ARG="--register-unsafely-without-email"
+else
+    EMAIL_ARG="--email $USER_INPUT"
+fi
+
+# request certificate
+docker exec -ti certbot certbot certonly --webroot -w /var/www/certbot \
+    $EMAIL_ARG \
+    -d $DOMAIN \
+    --rsa-key-size 4096 \
+    --agree-tos \
+    --force-renewal
+
+# write new site configuration
+TMPFILE=`mktemp -t XXXXXXXX.conf`
+cat >$TMPFILE <<EOF
+server {
+    listen 80;
+    server_name ${DOMAIN};
+    location / {
+        return 301 https://\$host\$request_uri;
+    }    
+}
+server {
+    listen 443 ssl;
+    server_name ${DOMAIN};
+    
+    location / {
+        proxy_pass ${CONNECTION}
+    }
+
+    ssl_certificate /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${DOMAIN}/privkey.pem;
+
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
+EOF
+docker cp $TMPFILE nginx:/etc/letsencrypt/$DOMAIN.conf
