@@ -34,4 +34,5 @@ tput rmcup
 
 # copy automatical domain creation tool to /usr/local/bin
 sudo cp -rf register-new-site /usr/local/bin/
+sudo cp -rf create-docker-compose-boilerplate /usr/local/bin/
 echo -e "\e[1m[docker/nginx-certbot] \e[0m\e[96mdone\e[0m"
