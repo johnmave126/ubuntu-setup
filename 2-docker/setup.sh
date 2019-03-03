@@ -37,6 +37,15 @@ tput rmcup
 
 # Add current user to docker group
 sudo usermod -aG docker $USER
+newgrp docker
+
+# Install docker-compose
+echo -e "\e[1m[docker] \e[0m\e[96minstall docker-compose\e[0m"
+sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+# deny 2375 port
+sudo ufw deny 2375/tcp
 
 # create containers
 for task in $CHOICES ; do
