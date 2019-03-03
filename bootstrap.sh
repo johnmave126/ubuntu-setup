@@ -20,6 +20,8 @@ tput rmcup
 
 # pull whole setup repo
 echo -e "\e[1m[bootstrap] \e[0m\e[96mclone repo\e[0m"
+# remove ubuntu-setup if exists
+rm -rf ubuntu-setup
 git clone https://github.com/johnmave126/ubuntu-setup.git
 
 # run actual setup script

@@ -41,7 +41,7 @@ sudo usermod -aG docker $USER
 # create containers
 for task in $CHOICES ; do
     dir=$(dirname "$task")
-    pushd "$dir"
+    pushd "$dir" >/dev/null
     ./setup.sh
-    popd
+    popd >/dev/null
 done

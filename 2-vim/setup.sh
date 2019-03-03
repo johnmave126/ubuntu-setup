@@ -24,7 +24,7 @@ tput rmcup
 # Setup YCM
 echo -e "\e[1m[vim] \e[0m\e[96msetup YCM\e[0m"
 tput smcup
-pushd ~/.vim/bundle/YouCompleteMe
+pushd ~/.vim/bundle/YouCompleteMe >/dev/null
 python3 install.py --all
-popd
+popd >/dev/null
 tput rmcup

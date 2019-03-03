@@ -15,7 +15,7 @@ CHOICES=$(./tasks.sh `pwd` "Choose initialization tasks")
 for task in $CHOICES ; do
     dir=$(dirname "$task")
     echo -e "\e[1m[setup] \e[0m\e[96menter $dir\e[0m"
-    pushd "$dir"
+    pushd "$dir" >/dev/null
     ./setup.sh
-    popd
+    popd >/dev/null
 done
