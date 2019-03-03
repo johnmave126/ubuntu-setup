@@ -38,6 +38,7 @@ tput rmcup
 # Add current user to docker group
 sudo usermod -aG docker $USER
 newgrp docker
+newgrp $USER
 
 # Install docker-compose
 echo -e "\e[1m[docker] \e[0m\e[96minstall docker-compose\e[0m"

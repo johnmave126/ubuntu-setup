@@ -30,6 +30,4 @@ echo -e "\e[1m[bootstrap] \e[0m\e[96mstart actual setup\e[0m"
 ./setup.sh
 popd >/dev/null
 
-# clean up
-rm -rf ubuntu-setup/
 echo -e "\e[1m[bootstrap] \e[0m\e[96mfinished, log written to $LOGFILE\e[0m"
