@@ -31,8 +31,8 @@ tput rmcup
 # Install docker
 echo -e "\e[1m[docker] \e[0m\e[96minstall docker\e[0m"
 tput smcup
-sudo apt-get update
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io
 tput rmcup
 
 # Add current user to docker group
