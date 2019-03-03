@@ -12,6 +12,10 @@ services:
     networks:
       - outside
       - default
+  db:
+    image: 
+    networks:
+      - default
 
 networks:
   outside:
