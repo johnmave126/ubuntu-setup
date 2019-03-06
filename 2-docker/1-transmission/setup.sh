@@ -22,23 +22,42 @@ GID=$(id -g "$USER")
 # Acquire system TimeZone
 TZ=$(cat /etc/timezone)
 
-# create container
-docker create --name=transmission \
-              --restart=unless-stopped \
-              -v $TRANSMISSION_ROOT/data:/config \
-              -v $TRANSMISSION_ROOT/downloads:/downloads \
-              -v $TRANSMISSION_ROOT/watch:/watch \
-              -e PGID=$UID \
-              -e PUID=$GID \
-              -e TZ=$TZ \
-              -p 127.0.0.1:9091:9091 \
-              -p 51413:51413 -p 51413:51413/udp linuxserver/transmission
+# copy Dockerfile for stig
+copy -rf ./Dockerfile "$TRANSMISSION_ROOT/"
+
+# create docker-compose.yml in TRANSMISSION_ROOT
+pushd "$TRANSMISSION_ROOT" > /dev/null
+cat >docker-compose.yml <<EOF
+version: '3.5'
+
+services:
+  transmission:
+    image: linuxserver/transmission
+    ports:
+      - '51413:51413'
+      - '51413:51413/udp'
+    volumes:
+      - $TRANSMISSION_ROOT/data:/config
+      - $TRANSMISSION_ROOT/downloads:/downloads
+      - $TRANSMISSION_ROOT/watch:/watch
+    environment:
+      PGID: '$UID'
+      PUID: '$GID'
+      TZ: '$TZ'
+    restart: always
+  stig:
+    build: .
+    container_name: stig
+    depends_on:
+      - transmission
+EOF
+# start container
+docker-compose up -d
+popd > /dev/null
 
 # enable in firewall
 sudo ufw allow 51413/tcp
 sudo ufw allow 51413/udp
 sudo ufw reload
 
-# start container
-docker start transmission
 tput rmcup
