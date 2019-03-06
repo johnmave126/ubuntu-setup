@@ -15,15 +15,14 @@ mkdir -p $TRANSMISSION_ROOT/data $TRANSMISSION_ROOT/downloads $TRANSMISSION_ROOT
 # Copy config file
 cp ./settings.json "$TRANSMISSION_ROOT/data/"
 
-# Acquire current user UID and GID
-UID=$(id -u "$USER")
+# Acquire current user GID
 GID=$(id -g "$USER")
 
 # Acquire system TimeZone
 TZ=$(cat /etc/timezone)
 
 # copy Dockerfile for stig
-copy -rf ./Dockerfile "$TRANSMISSION_ROOT/"
+cp -rf ./Dockerfile "$TRANSMISSION_ROOT/"
 
 # create docker-compose.yml in TRANSMISSION_ROOT
 pushd "$TRANSMISSION_ROOT" > /dev/null
