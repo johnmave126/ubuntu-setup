@@ -13,7 +13,7 @@ fi
 mkdir -p $TRANSMISSION_ROOT/data $TRANSMISSION_ROOT/downloads $TRANSMISSION_ROOT/watch
 
 # Copy config file
-cp ./settings.json "$TRANSMISSION_ROOT/data/"
+cp -rf ./settings.json "$TRANSMISSION_ROOT/data/"
 
 # Acquire current user GID
 GID=$(id -g "$USER")
@@ -44,8 +44,8 @@ sudo ufw allow 51413/tcp
 sudo ufw allow 51413/udp
 sudo ufw reload
 
-# add stig alias in .bash_alias
-ALIAS_FILE=$HOME/.bash_alias
+# add stig alias in .bash_aliases
+ALIAS_FILE=$HOME/.bash_aliases
 sed -i "/alias stig=/d" $ALIAS_FILE
 echo "alias stig=\"docker run -it --rm --network=transmission-network stig stig set connect.host transmission\"" >> $ALIAS_FILE
 source $ALIAS_FILE

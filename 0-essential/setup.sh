@@ -8,17 +8,6 @@ tput smcup
 sudo apt install -y build-essential cmake curl python python3-dev gnupg ca-certificates net-tools ssh iotop
 tput rmcup
 
-# create simple bash_alias
-echo -e "\e[1m[essential] \e[0m\e[96mcreate bash_aliases\e[0m"
-tput smcup
-ALIAS_FILE=$HOME/.bash_aliases
-if [[ !-f $ALIAS_FILE ]]; then
-    touch $ALIAS_FILE
-    echo ". $ALIAS_FILE" >> ~/.bashrc
-fi
-tput rmcup
-
-
 # remove Chinese and Quovadis certificates from ca-certificates
 echo -e "\e[1m[essential] \e[0m\e[96mremove untrusted certificates\e[0m"
 tput smcup
