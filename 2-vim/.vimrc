@@ -45,9 +45,14 @@ set softtabstop=4
 set shiftwidth=4
 set nu
 set expandtab
+set ruler
+set autoread
 
 " Color Scheme
 colo monokai
+
+" Font settings
+set gfn=Anonymous\ Pro\ 16
 
 " YCM Settings
 " Haskell
@@ -56,3 +61,8 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " NerdTree Settings
 let g:NERDTreeWinSize=40
+let mapleader = ","
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark 
+map <leader>nf :NERDTreeFind<cr>
+

@@ -2,9 +2,9 @@
 #
 # Install vim, monokai theme, and common plugins
 
-echo -e "\e[1m[vim] \e[0m\e[96minstall vim\e[0m"
+echo -e "\e[1m[vim] \e[0m\e[96minstall vim and Anonymous Pro\e[0m"
 tput smcup
-sudo apt install -y vim
+sudo apt install -y vim ttf-anonymous-pro
 tput rmcup
 
 # Install Vundle
