@@ -21,42 +21,35 @@ GID=$(id -g "$USER")
 # Acquire system TimeZone
 TZ=$(cat /etc/timezone)
 
-# copy Dockerfile for stig
-cp -rf ./Dockerfile "$TRANSMISSION_ROOT/"
+# create docker network to run transmission
+docker network create -d bridge transmission-network
 
-# create docker-compose.yml in TRANSMISSION_ROOT
-pushd "$TRANSMISSION_ROOT" > /dev/null
-cat >docker-compose.yml <<EOF
-version: '3.5'
+# create container for transmission
+docker create --name=transmission \
+              --restart=unless-stopped \
+              --network=transmission-network \
+              -v $TRANSMISSION_ROOT/data:/config \
+              -v $TRANSMISSION_ROOT/downloads:/downloads \
+              -v $TRANSMISSION_ROOT/watch:/watch \
+              -e PGID=$UID \
+              -e PUID=$GID \
+              -e TZ=$TZ \
+              -p 51413:51413 -p 51413:51413/udp linuxserver/transmission
 
-services:
-  transmission:
-    image: linuxserver/transmission
-    ports:
-      - '51413:51413'
-      - '51413:51413/udp'
-    volumes:
-      - $TRANSMISSION_ROOT/data:/config
-      - $TRANSMISSION_ROOT/downloads:/downloads
-      - $TRANSMISSION_ROOT/watch:/watch
-    environment:
-      PGID: '$UID'
-      PUID: '$GID'
-      TZ: '$TZ'
-    restart: always
-  stig:
-    build: .
-    container_name: stig
-    depends_on:
-      - transmission
-EOF
-# start container
-docker-compose up -d
-popd > /dev/null
+# build image for stig
+docker build -t stig .
 
 # enable in firewall
 sudo ufw allow 51413/tcp
 sudo ufw allow 51413/udp
 sudo ufw reload
 
+# add stig alias in .bash_alias
+ALIAS_FILE=$HOME/.bash_alias
+sed -i "/alias stig=/d" $ALIAS_FILE
+echo "alias stig=\"docker run -it --rm --network=transmission-network stig stig set connect.host transmission\"" >> $ALIAS_FILE
+source $ALIAS_FILE
+
+# start container
+docker start transmission
 tput rmcup
