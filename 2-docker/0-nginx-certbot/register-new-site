@@ -65,6 +65,9 @@ server {
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 }
 EOF
+# use default editor for user to edit it
+"${EDITOR:-${VISUAL:-vi}}" $TMPFILE
+# copy the final file into configuration volume
 docker cp $TMPFILE nginx:/etc/nginx/conf.d/$DOMAIN.conf
 # clean up
 rm -f $TMPFILE
