@@ -36,7 +36,8 @@ sudo ufw allow 443/tcp
 sudo ufw reload
 tput rmcup
 
-# copy automatical domain creation tool to /usr/local/bin
-sudo cp -rf register-new-site /usr/local/bin/
-sudo cp -rf create-docker-compose-boilerplate /usr/local/bin/
+# add automatical domain creation tool to alias
+CURRENT_DIR=`pwd`
+../../add-alias.sh register-new-site "$CURRENT_DIR/register-new-site"
+../../add-alias.sh create-docker-compose-boilerplate "$CURRENT_DIR/create-docker-compose-boilerplate"
 echo -e "\e[1m[docker/nginx-certbot] \e[0m\e[96mdone\e[0m"

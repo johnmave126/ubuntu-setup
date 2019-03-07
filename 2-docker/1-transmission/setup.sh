@@ -45,10 +45,7 @@ sudo ufw allow 51413/udp
 sudo ufw reload
 
 # add stig alias in .bash_aliases
-ALIAS_FILE=$HOME/.bash_aliases
-sed -i "/alias stig=/d" $ALIAS_FILE
-echo "alias stig=\"docker run -it --rm --network=transmission-network stig stig set connect.host transmission\"" >> $ALIAS_FILE
-source $ALIAS_FILE
+../../add-alias.sh stig "docker run -it --rm --network=transmission-network stig stig set connect.host transmission"
 
 # start container
 docker start transmission
