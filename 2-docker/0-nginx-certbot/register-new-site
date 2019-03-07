@@ -67,6 +67,23 @@ server {
 EOF
 # use default editor for user to edit it
 "${EDITOR:-${VISUAL:-vi}}" $TMPFILE
+
+# check validity of the file
+CONFDIR=$(dirname "$TMPFILE")
+FILENAME=$(basename "$TMPFILE")
+CHECK=$(docker run --rm -t -a stdout --name nginx-validator -v $CONFDIR:/etc/nginx/:ro nginx:latest nginx -c /etc/nginx/$FILENAME -t)
+
+# look for the word successful and count the lines that have it
+SUCCESS=$(echo $result | grep successful | wc -l)
+
+if [ $SUCCESS = 0 ]; then
+    echo "FAILED"
+    echo "$CHECK"
+    exit 1
+else
+    echo SUCCESS
+fi
+
 # copy the final file into configuration volume
 docker cp $TMPFILE nginx:/etc/nginx/conf.d/$DOMAIN.conf
 # clean up
