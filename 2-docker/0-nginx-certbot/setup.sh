@@ -18,10 +18,14 @@ docker cp default.conf nginx:/etc/nginx/conf.d/
 TMPFILE=`mktemp -t XXXXXXXX.conf`
 curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/options-ssl-nginx.conf >$TMPFILE
 docker cp $TMPFILE nginx:/etc/letsencrypt/options-ssl-nginx.conf
+# clean up
+rm -f $TMPFILE
 
 TMPFILE=`mktemp -t XXXXXXXX.pem`
 curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/ssl-dhparams.pem >$TMPFILE
 docker cp $TMPFILE nginx:/etc/letsencrypt/ssl-dhparams.pem
+# clean up
+rm -f $TMPFILE
 tput rmcup
 
 # enable in firewall

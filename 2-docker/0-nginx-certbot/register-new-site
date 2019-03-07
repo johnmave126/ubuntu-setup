@@ -66,6 +66,8 @@ server {
 }
 EOF
 docker cp $TMPFILE nginx:/etc/nginx/conf.d/$DOMAIN.conf
+# clean up
+rm -f $TMPFILE
 
 # reload nginx
 docker exec nginx nginx -s reload
