@@ -60,6 +60,12 @@ sudo apt install -y nodejs \
                     cabal-install-1.22 ghc-7.10.3
 tput rmcup
 
+# install stack
+echo -e "\e[1m[languages] \e[0m\e[96minstall stack\e[0m"
+tput smcup
+curl -sSL https://get.haskellstack.org/ | sh
+tput rmcup
+
 # install rust
 echo -e "\e[1m[languages] \e[0m\e[96minstall rust\e[0m"
 tput smcup
