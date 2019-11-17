@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 #
 # Add an alias in .bash_aliases
 # Usage: add-alias.sh name command
