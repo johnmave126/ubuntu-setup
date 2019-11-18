@@ -40,11 +40,11 @@ docker exec -ti certbot certbot certonly --webroot -w /var/www/certbot \
     $EMAIL_ARG \
     -d $DOMAIN \
     --rsa-key-size 4096 \
-    --agree-tos \
-    --force-renewal
+    --agree-tos
 
 # write new site configuration
-TMPFILE=`mktemp -t XXXXXXXX.conf`
+CONFDIR=`mktemp -d`
+TMPFILE=`mktemp -p $CONFDIR -t XXXXXXXX.conf`
 cat >$TMPFILE <<EOF
 server {
     listen 443 ssl;
@@ -52,8 +52,8 @@ server {
     
     location / {
         resolver 127.0.0.11;
-        set $target ${CONNECTION};
-        proxy_pass $target;
+        set \$target ${CONNECTION};
+        proxy_pass \$target;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection "Upgrade";
@@ -71,12 +71,10 @@ EOF
 "${EDITOR:-${VISUAL:-vi}}" $TMPFILE
 
 # check validity of the file
-CONFDIR=$(dirname "$TMPFILE")
-FILENAME=$(basename "$TMPFILE")
-CHECK=$(docker run --rm -t -a stdout --name nginx-validator -v $CONFDIR:/etc/nginx/:ro nginx:latest nginx -c /etc/nginx/$FILENAME -t)
+CHECK=$(docker run --rm -t -a stdout --name nginx-validator -v $CONFDIR:/etc/nginx/conf.d:ro -v certbot-conf:/etc/letsencrypt:ro nginx:latest nginx -t)
 
 # look for the word successful and count the lines that have it
-SUCCESS=$(echo $result | grep successful | wc -l)
+SUCCESS=$(echo $CHECK | grep successful | wc -l)
 
 if [ $SUCCESS = 0 ]; then
     echo "FAILED"
@@ -89,7 +87,7 @@ fi
 # copy the final file into configuration volume
 docker cp $TMPFILE nginx:/etc/nginx/conf.d/$DOMAIN.conf
 # clean up
-rm -f $TMPFILE
+rm -rf $CONFDIR
 
 # reload nginx
 docker exec nginx nginx -s reload
