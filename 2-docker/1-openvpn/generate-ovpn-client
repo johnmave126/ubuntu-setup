@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+# Generate a OpenVPN Client Config
+
+display_usage() { 
+    echo "Generate a OpenVPN Client Config"
+    echo -e "\nUsage:\n$0 name\n"
+    echo "  name          name of the client"
+}
+
+# check whether user had supplied -h or --help . If yes display usage
+if [[ $1 == "--help" ||  $1 == "-h" ]]; then
+    display_usage
+    exit 0
+fi
+
+# if less than two arguments supplied, display usage
+if [[  $# -ne 1 ]]; then
+    echo -e "Expect 1 arguments, $# given\n"
+    display_usage
+    exit 1
+fi
+
+CLIENT=$1
+
+# generate client certificate
+docker exec -ti openvpn easyrsa build-client-full $CLIENT nopass
+
+# retrieve the client configuration
+docker exec openvpn ovpn_getclient $CLIENT > $CLIENT.ovpn
+
