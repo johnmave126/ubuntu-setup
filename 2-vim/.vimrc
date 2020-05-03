@@ -13,8 +13,11 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'sickill/vim-monokai'
 " AutoComplete
 Plugin 'Valloric/YouCompleteMe'
+" AutoCompleteGenerator
+Plugin 'rdnetto/YCM-Generator'
 " Git
 Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 " Fast file navigation
 Plugin 'git://git.wincent.com/command-t.git'
 " Better status line
