@@ -16,9 +16,10 @@ tput rmcup
 # Copy vimrc
 echo -e "\e[1m[vim] \e[0m\e[96minstall plugins\e[0m"
 tput smcup
-cp -f .vimrc ~/.vimrc
+sed -e '/colo monokai/d' .vimrc >~/.vimrc
 # Install all plugins
 vim +PluginInstall +qall
+cp -f .vimrc ~/.vimrc
 tput rmcup
 
 # Setup YCM
