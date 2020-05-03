@@ -73,7 +73,7 @@ tput rmcup
 
 # after install for haskell
 cat >> ~/.bashrc <<EOF
-export PATH='$HOME/.cabal/bin:/opt/cabal/3.2/bin:/opt/ghc/8.10.1/bin:$PATH'
+export PATH='$HOME/.cabal/bin:/opt/cabal/3.2/bin:/opt/ghc/8.10.1/bin:$$PATH'
 EOF
 export PATH=~/.cabal/bin:/opt/cabal/3.2/bin:/opt/ghc/8.10.1/bin:$PATH
 

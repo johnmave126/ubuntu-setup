@@ -29,3 +29,11 @@ pushd ~/.vim/bundle/YouCompleteMe >/dev/null
 python3 install.py --all
 popd >/dev/null
 tput rmcup
+
+cat >>~/.bashrc <EOF
+export VISUAL=vim
+export EDITOR="$VISUAL"
+EOF
+
+git config --global core.editor "vim"
+
