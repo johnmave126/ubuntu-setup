@@ -3,7 +3,6 @@
 # Install L2TP/IPSEC-PSK VPN server
 
 echo -e "\e[1m[docker/l2tp-ipsec-psk] \e[0m\e[96minstall L2TP/IPSEC-PSK\e[0m"
-tput smcup
 # Ask for preshared key
 PSK=''
 while [[ -z "$PSK" ]]; do
@@ -52,6 +51,5 @@ sudo ufw reload
 
 # start container
 docker start l2tp-ipsec-psk
-tput rmcup
 
 echo -e "\e[1m[docker/l2tp-ipsec-psk] \e[0m\e[96mdone\e[0m"

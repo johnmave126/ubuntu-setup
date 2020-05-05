@@ -3,7 +3,6 @@
 # Install OpenVPN server
 
 echo -e "\e[1m[docker/openvpn] \e[0m\e[96minstall OpenVPN\e[0m"
-tput smcup
 
 read -p "Enter domain name: " DOMAIN
 
@@ -27,7 +26,6 @@ sudo ufw reload
 
 # start container
 docker start openvpn
-tput rmcup
 
 # add client generation script
 CURRENT_DIR=`pwd`

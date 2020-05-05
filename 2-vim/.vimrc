@@ -15,6 +15,8 @@ Plugin 'sickill/vim-monokai'
 Plugin 'Valloric/YouCompleteMe'
 " AutoCompleteGenerator
 Plugin 'rdnetto/YCM-Generator'
+" Color coded
+Plugin 'jeaye/color_coded'
 " Git
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
@@ -26,6 +28,8 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'scrooloose/nerdtree'
 " Git support on filesystem tree
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+" Better icons
+Plugin 'ryanoasis/vim-devicons'
 
 " Language Plugins
 " ReasonML
@@ -55,7 +59,10 @@ set autoread
 colo monokai
 
 " Font settings
-set gfn=Anonymous\ Pro\ 16
+set encoding=UTF-8
+set gfn=Anonymice\ Nerd\ Font\ Complete\ Mono\ 16
+
+let g:airline_powerline_fonts = 1
 
 " YCM Settings
 " Haskell
@@ -68,4 +75,32 @@ let mapleader = ","
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark 
 map <leader>nf :NERDTreeFind<cr>
+
+" nf-fa-caret_[right, down]
+let g:NERDTreeDirArrowExpandable = "\uf0da"
+let g:NERDTreeDirArrowCollapsible = "\uf0d7"
+
+" Use monospace font for git-plugin
+" Modified: nf-oct-diff_modified
+" Staged: nf-oct-diff_added
+" Untracked: nf-oct-issue_opened
+" Renamed: nf-oct-diff_renamed
+" Unmerged: nf-oct-gist
+" Deleted: nf-oct-diff_removed
+" Dirty: nf-oct-pencil
+" Clean: nf-oct-check
+" Ignored: nf-oct-diff_ignored
+" Unknown: nf-oct-question
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "\uf459",
+    \ "Staged"    : "\uf457",
+    \ "Untracked" : "\uf41b",
+    \ "Renamed"   : "\uf45a",
+    \ "Unmerged"  : "\uf40c",
+    \ "Deleted"   : "\uf458",
+    \ "Dirty"     : "\uf448",
+    \ "Clean"     : "\uf42e",
+    \ 'Ignored'   : '\uf474',
+    \ "Unknown"   : "\uf420"
+    \ }
 

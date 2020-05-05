@@ -3,9 +3,7 @@
 # Remove bloatware coming with Ubuntu-Desktop
 
 echo -e "\e[1m[bloatware] \e[0m\e[96mremove bloatware\e[0m"
-tput smcup
 sudo apt remove -y update-notifier thunderbird rhythmbox
-tput rmcup
 
 # Hide amazon
 echo -e "\e[1m[bloatware] \e[0m\e[96mremove Amazon shortcut\e[0m"

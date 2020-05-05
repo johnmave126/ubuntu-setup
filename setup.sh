@@ -4,9 +4,7 @@
 
 # fetch dialog
 echo -e "\e[1m[setup] \e[0m\e[96minstall dialog\e[0m"
-tput smcup
 sudo apt install -y dialog
-tput rmcup
 
 # prompt user to choose subtasks
 CHOICES=$(./tasks.sh `pwd` "Choose initialization tasks")

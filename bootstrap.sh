@@ -13,11 +13,9 @@ exec >& >(tee "$LOGFILE")
 
 # install git
 echo -e "\e[1m[bootstrap] \e[0m\e[96mupdate system\e[0m"
-tput smcup
-sudo apt update
-sudo apt dist-upgrade -y
-sudo apt install -y git
-tput rmcup
+sudo apt-get update
+sudo apt-get dist-upgrade -y
+sudo apt-get install -y git
 
 # pull whole setup repo
 echo -e "\e[1m[bootstrap] \e[0m\e[96mclone repo\e[0m"
