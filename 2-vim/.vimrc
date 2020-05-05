@@ -54,6 +54,7 @@ set nu
 set expandtab
 set ruler
 set autoread
+set cursorline
 
 " Color Scheme
 colo monokai
