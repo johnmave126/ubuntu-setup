@@ -3,7 +3,7 @@
 # Install vim, monokai theme, and common plugins
 
 echo -e "\e[1m[vim] \e[0m\e[96minstall vim and Anonymous Pro\e[0m"
-sudo apt-get install -y vim.nox libncurses5-dev libz3-dev xz-utils libpthread-workqueue-dev liblua5.2-dev lua5.2
+sudo apt-get install -y vim.nox libncurses5-dev libz3-dev xz-utils libpthread-workqueue-dev liblua5.2-dev lua5.2 ruby2.5-dev
 wget -P /tmp https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/AnonymousPro.zip
 sudo unzip -d /usr/share/fonts/truetype/anonymous-pro /tmp/AnonymousPro.zip
 fc-cache -f -v
@@ -32,6 +32,13 @@ mkdir build && cd build
 cmake ..
 make && make install
 make clean && make clean_clang
+popd >/dev/null
+
+# Setup color_coded
+echo -e "\e[1m[vim] \e[0m\e[96msetup command-t\e[0m"
+pushd ~/.vim/bundle/command-t/ruby/command-t/ext/command-t >/dev/null
+ruby extconf.rb
+make
 popd >/dev/null
 
 cat >>~/.bashrc <EOF

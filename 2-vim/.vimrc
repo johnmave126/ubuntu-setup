@@ -55,8 +55,8 @@ set expandtab
 set ruler
 set autoread
 set cursorline
+set hidden
 
-" Color Scheme
 colo monokai
 
 " Font settings
@@ -65,6 +65,23 @@ set gfn=Anonymice\ Nerd\ Font\ Complete\ Mono\ 16
 
 let g:airline_powerline_fonts = 1
 
+" airline Settings
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
+let g:airline#extensions#tabline#keep_orig_tabline = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+nnoremap <C-[>   :bp<cr>
+nnoremap <C-]>   :bn<cr>
+
+function! BufferDelete()
+    if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1
+        execute "bp|bd#"
+    else
+        execute "enew|bd#"
+    endif
+endfunction
+nnoremap <C-_> :call BufferDelete()<CR>
+
 " YCM Settings
 " Haskell
 let g:ycm_semantic_triggers = {'haskell' : ['.']}
@@ -72,7 +89,8 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " NerdTree Settings
 let g:NERDTreeWinSize=40
-let mapleader = ","
+let g:NERDTreeMinimalUI=1
+let g:mapleader = ","
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark 
 map <leader>nf :NERDTreeFind<cr>
@@ -80,6 +98,9 @@ map <leader>nf :NERDTreeFind<cr>
 " nf-fa-caret_[right, down]
 let g:NERDTreeDirArrowExpandable = "\uf0da"
 let g:NERDTreeDirArrowCollapsible = "\uf0d7"
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Use monospace font for git-plugin
 " Modified: nf-oct-diff_modified
