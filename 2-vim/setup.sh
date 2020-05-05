@@ -3,7 +3,7 @@
 # Install vim, monokai theme, and common plugins
 
 echo -e "\e[1m[vim] \e[0m\e[96minstall vim and Anonymous Pro\e[0m"
-sudo apt install -y vim.nox libncurses5-dev libz3-dev xz-utils libpthread-workqueue-dev liblua5.2-dev lua5.2
+sudo apt-get install -y vim.nox libncurses5-dev libz3-dev xz-utils libpthread-workqueue-dev liblua5.2-dev lua5.2
 wget -P /tmp https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/AnonymousPro.zip
 sudo unzip -d /usr/share/fonts/truetype/anonymous-pro /tmp/AnonymousPro.zip
 fc-cache -f -v

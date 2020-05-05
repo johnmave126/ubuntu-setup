@@ -26,8 +26,8 @@ sudo add-apt-repository -y ppa:hvr/ghc
 
 # install all
 echo -e "\e[1m[languages] \e[0m\e[96minstall everything\e[0m"
-sudo apt update
-sudo apt install -y nodejs \
+sudo apt-get update
+sudo apt-get install -y nodejs \
                     golang-go \
                     libllvm-10-ocaml-dev libllvm10 llvm-10 llvm-10-dev llvm-10-doc llvm-10-examples llvm-10-runtime \
                     clang-10 clang-tools-10 clang-10-doc libclang-common-10-dev libclang-10-dev libclang1-10 clang-format-10 python3-clang-10 clangd-10\

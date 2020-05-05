@@ -7,9 +7,9 @@
 # Ask user what containers to create
 CHOICES=$(../tasks.sh `pwd` "Choose Docker containers to create")
 
-# Install packages to allow apt to use a repository over HTTPS:
+# Install packages to allow apt-get to use a repository over HTTPS:
 echo -e "\e[1m[docker] \e[0m\e[96minstall docker pre-requisite\e[0m"
-sudo apt install \
+sudo apt-get install \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -26,8 +26,8 @@ sudo add-apt-repository \
 
 # Install docker
 echo -e "\e[1m[docker] \e[0m\e[96minstall docker\e[0m"
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
 # Add current user to docker group
 sudo usermod -aG docker $USER

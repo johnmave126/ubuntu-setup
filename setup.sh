@@ -4,7 +4,7 @@
 
 # fetch dialog
 echo -e "\e[1m[setup] \e[0m\e[96minstall dialog\e[0m"
-sudo apt install -y dialog
+sudo apt-get install -y dialog
 
 # prompt user to choose subtasks
 CHOICES=$(./tasks.sh `pwd` "Choose initialization tasks")
