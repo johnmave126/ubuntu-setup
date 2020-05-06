@@ -75,12 +75,19 @@ set ignorecase
 set smartcase
 set incsearch
 set scrolloff=3
+set hls
 
 colo monokai
 
 " Font settings
 set encoding=UTF-8
 set gfn=Anonymice\ Nerd\ Font\ Complete\ Mono\ 16
+
+" Split manipulation
+nnoremap <Up> :vertical res -2<cr>
+nnoremap <Down> :vertical res +2<cr>
+nnoremap <Left> :res -2<cr>
+nnoremap <Right> :res +2<cr>
 
 let g:airline_powerline_fonts = 1
 
@@ -165,4 +172,6 @@ let g:NERDTreeIndicatorMapCustom = {
 
 " Tags window
 nmap <F8> :TagbarToggle<CR>
+let g:tagbar_vertical = 15
+highlight link TagbarSignature Keyword
 
