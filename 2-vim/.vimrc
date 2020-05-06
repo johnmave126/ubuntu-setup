@@ -11,6 +11,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " Color Scheme
 Plugin 'sickill/vim-monokai'
+" Indentation detection
+Plugin 'tpope/vim-sleuth'
 " AutoComplete
 Plugin 'Valloric/YouCompleteMe'
 " AutoCompleteGenerator
@@ -30,6 +32,17 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 " Better icons
 Plugin 'ryanoasis/vim-devicons'
+" Manage parentheses, tags, quotes, ...
+Plugin 'tpope/vim-surround'
+" Search highlight
+Plugin 'romainl/vim-cool'
+" Comment lines
+Plugin 'scrooloose/nerdcommenter'
+" Tags
+Plugin 'majutsushi/tagbar'
+" Sessions
+Plugin 'tpope/vim-obsession'
+Plugin 'dhruvasagar/vim-prosession'
 
 " Language Plugins
 " ReasonML
@@ -56,6 +69,12 @@ set ruler
 set autoread
 set cursorline
 set hidden
+set showmatch
+set mat=1
+set ignorecase
+set smartcase
+set incsearch
+set scrolloff=3
 
 colo monokai
 
@@ -69,13 +88,27 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 let g:airline#extensions#tabline#keep_orig_tabline = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-nnoremap <C-[>   :bp<cr>
-nnoremap <C-]>   :bn<cr>
+
+execute "set <M-q>=\eq"
+execute "set <M-e>=\ee"
+execute "set <M-1>=\e1"
+execute "set <M-2>=\e2"
+execute "set <M-3>=\e3"
+execute "set <M-4>=\e4"
+nmap <M-q>   <Plug>AirlineSelectPrevTab
+nmap <M-e>   <Plug>AirlineSelectNextTab
+nmap <M-1>   <Plug>AirlineSelectTab1
+nmap <M-2>   <Plug>AirlineSelectTab2
+nmap <M-3>   <Plug>AirlineSelectTab3
+nmap <M-4>   <Plug>AirlineSelectTab4
 
 function! BufferDelete()
     if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1
-        execute "bp|bd#"
+        if len(filter(range(1, bufnr('%')), 'buflisted(v:val)')) == 1
+            execute "bn|bd#"
+        else
+            execute "bp|bd#"
+        endif
     else
         execute "enew|bd#"
     endif
@@ -88,8 +121,9 @@ let g:ycm_semantic_triggers = {'haskell' : ['.']}
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " NerdTree Settings
-let g:NERDTreeWinSize=40
-let g:NERDTreeMinimalUI=1
+let g:NERDTreeWinSize = 40
+let g:NERDTreeMinimalUI = 1
+let NERDTreeAutoDeleteBuffer = 1
 let g:mapleader = ","
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark 
@@ -99,8 +133,11 @@ map <leader>nf :NERDTreeFind<cr>
 let g:NERDTreeDirArrowExpandable = "\uf0da"
 let g:NERDTreeDirArrowCollapsible = "\uf0d7"
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+augroup vimrc
+    autocmd!
+    autocmd VimEnter * NERDTree | wincmd p
+    autocmd User ProsessionPost NERDTree | wincmd p
+augroup END
 
 " Use monospace font for git-plugin
 " Modified: nf-oct-diff_modified
@@ -125,4 +162,7 @@ let g:NERDTreeIndicatorMapCustom = {
     \ 'Ignored'   : '\uf474',
     \ "Unknown"   : "\uf420"
     \ }
+
+" Tags window
+nmap <F8> :TagbarToggle<CR>
 

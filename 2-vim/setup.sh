@@ -3,7 +3,11 @@
 # Install vim, monokai theme, and common plugins
 
 echo -e "\e[1m[vim] \e[0m\e[96minstall vim and Anonymous Pro\e[0m"
-sudo apt-get install -y vim.nox libncurses5-dev libz3-dev xz-utils libpthread-workqueue-dev liblua5.2-dev lua5.2 ruby2.5-dev
+sudo apt-get install -y vim.nox libncurses5-dev libz3-dev xz-utils \
+                        libpthread-workqueue-dev liblua5.2-dev lua5.2 ruby2.5-dev \
+                        pkg-config autoconf automake checkinstall \
+                        python3-docutils libseccomp-dev libjansson-dev \
+                        libyaml-dev libxml2-dev
 wget -P /tmp https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/AnonymousPro.zip
 sudo unzip -d /usr/share/fonts/truetype/anonymous-pro /tmp/AnonymousPro.zip
 fc-cache -f -v
@@ -11,6 +15,20 @@ fc-cache -f -v
 # Install Vundle
 echo -e "\e[1m[vim] \e[0m\e[96minstall Vundle\e[0m"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+# Install ctags
+echo -e "\e[1m[vim] \e[0m\e[96minstall ctags\e[0m"
+pushd /tmp >/dev/null
+git clone https://github.com/universal-ctags/ctags.git
+cd ctags
+./autogen.sh
+./configure
+make
+echo >description-pak <<EOF
+A maintained ctags implementation
+EOF
+sudo checkinstall -y --pkgversion="0.0.0~$(date +%Y%m%d)-git" --maintainer="universal-ctags@ctags.io"
+popd >/dev/null
 
 # Copy vimrc
 echo -e "\e[1m[vim] \e[0m\e[96minstall plugins\e[0m"
