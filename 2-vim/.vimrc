@@ -84,10 +84,10 @@ set encoding=UTF-8
 set gfn=Anonymice\ Nerd\ Font\ Complete\ Mono\ 16
 
 " Split manipulation
-nnoremap <Up> :vertical res -2<cr>
-nnoremap <Down> :vertical res +2<cr>
-nnoremap <Left> :res -2<cr>
-nnoremap <Right> :res +2<cr>
+nnoremap <Up> :res +2<cr>
+nnoremap <Down> :res -2<cr>
+nnoremap <Left> :vertical res -2<cr>
+nnoremap <Right> :vertical res +2<cr>
 
 let g:airline_powerline_fonts = 1
 
@@ -112,10 +112,11 @@ nmap <M-4>   <Plug>AirlineSelectTab4
 function! BufferDelete()
     if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1
         if len(filter(range(1, bufnr('%')), 'buflisted(v:val)')) == 1
-            execute "bn|bd#"
+            execute "normal \<Plug>AirlineSelectPrevTab"
         else
-            execute "bp|bd#"
+            execute "normal \<Plug>AirlineSelectNextTab"
         endif
+        execute "bd#"
     else
         execute "enew|bd#"
     endif
