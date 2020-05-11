@@ -5,7 +5,12 @@
 # Install basic packages
 echo -e "\e[1m[essential] \e[0m\e[96minstall essential packages\e[0m"
 sudo apt-get install -y build-essential cmake curl python python3-dev gnupg ca-certificates net-tools ssh iotop unzip tmux
+
+# Set up tmux
+echo -e "\e[1m[essential] \e[0m\e[96mSet up tmux\e[0m"
 cp .tmux.conf ~/.tmux.conf
+wget -O ~/.tmux-complete https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/master/completions/tmux
+echo . ~/.tmux-complete >>~/.bashrc
 
 # remove Chinese and Quovadis certificates from ca-certificates
 echo -e "\e[1m[essential] \e[0m\e[96mremove untrusted certificates\e[0m"
