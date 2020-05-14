@@ -15,6 +15,6 @@ echo ". ~/.tmux/tmux-complete" >>~/.bashrc
 # Set up plugins
 echo -e "\e[1m[tmux] \e[0m\e[96mSet up tmux plugins\e[0m"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-export TMUX_PLUGIN_MANAGER_PATH=$HOME/.tmux/plugins/tpm
+tmux source ~/.tmux.conf
 ~/.tmux/plugins/tpm/bin/install_plugins
 
