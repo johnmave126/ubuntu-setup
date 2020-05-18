@@ -10,16 +10,17 @@ docker-compose up -d
 # copy default site conf
 echo -e "\e[1m[docker/nginx-certbot] \e[0m\e[96mcopy default files\e[0m"
 docker cp default.conf nginx:/etc/nginx/conf.d/
+docker exec nginx nginx -s reload
 
 # download ssl parameters
 TMPFILE=`mktemp -t XXXXXXXX.conf`
-curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx-tls12-only.conf >$TMPFILE
+curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf >$TMPFILE
 docker cp $TMPFILE nginx:/etc/letsencrypt/options-ssl-nginx.conf
 # clean up
 rm -f $TMPFILE
 
 TMPFILE=`mktemp -t XXXXXXXX.pem`
-curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/ssl-dhparams.pem >$TMPFILE
+openssl dhparam -out $TMPFILE 2048
 docker cp $TMPFILE nginx:/etc/letsencrypt/ssl-dhparams.pem
 # clean up
 rm -f $TMPFILE
