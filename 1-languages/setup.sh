@@ -13,12 +13,12 @@ sudo add-apt-repository ppa:longsleep/golang-backports
 # prepare clang
 echo -e "\e[1m[languages] \e[0m\e[96mprepare clang\e[0m"
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-sudo apt-add-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-10 main"
+sudo apt-add-repository "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-10 main"
 
 # prepare mono
 echo -e "\e[1m[languages] \e[0m\e[96mprepare mono\e[0m"
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-sudo apt-add-repository "deb https://download.mono-project.com/repo/ubuntu stable-bionic main"
+sudo apt-add-repository "deb https://download.mono-project.com/repo/ubuntu stable-$(lsb_release -cs) main"
 
 # prepare haskell
 echo -e "\e[1m[languages] \e[0m\e[96mprepare haskell\e[0m"
