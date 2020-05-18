@@ -13,7 +13,7 @@ docker cp default.conf nginx:/etc/nginx/conf.d/
 
 # download ssl parameters
 TMPFILE=`mktemp -t XXXXXXXX.conf`
-curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/options-ssl-nginx.conf >$TMPFILE
+curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx-tls12-only.conf >$TMPFILE
 docker cp $TMPFILE nginx:/etc/letsencrypt/options-ssl-nginx.conf
 # clean up
 rm -f $TMPFILE
