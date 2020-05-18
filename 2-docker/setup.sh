@@ -41,13 +41,11 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo ufw deny 2375/tcp
 
 # create containers
-newgrp docker <<GROUP
 for task in $CHOICES ; do
-    dir=\$(dirname "\$task")
-    pushd "\$dir" >/dev/null
-    ./setup.sh
+    dir=$(dirname "$task")
+    pushd "$dir" >/dev/null
+    sg docker -c "/bin/bash --login ./setup.sh"
     popd >/dev/null
 done
-GROUP
 
 echo -e "\e[1m[docker] \e[0m\e[96mdone\e[0m"
