@@ -31,8 +31,6 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
 # Add current user to docker group
 sudo usermod -aG docker $USER
-newgrp docker
-newgrp $USER
 
 # Install docker-compose
 echo -e "\e[1m[docker] \e[0m\e[96minstall docker-compose\e[0m"
@@ -43,11 +41,13 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo ufw deny 2375/tcp
 
 # create containers
+newgrp docker <<GROUP
 for task in $CHOICES ; do
-    dir=$(dirname "$task")
-    pushd "$dir" >/dev/null
+    dir=\$(dirname "\$task")
+    pushd "\$dir" >/dev/null
     ./setup.sh
     popd >/dev/null
 done
+GROUP
 
 echo -e "\e[1m[docker] \e[0m\e[96mdone\e[0m"
