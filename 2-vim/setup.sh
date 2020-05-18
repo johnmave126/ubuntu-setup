@@ -49,7 +49,7 @@ popd >/dev/null
 # Setup color_coded
 echo -e "\e[1m[vim] \e[0m\e[96msetup color_coded\e[0m"
 pushd ~/.vim/bundle/color_coded >/dev/null
-mkdir build && cd build
+mkdir -p build && cd build
 cmake ..
 make && make install
 make clean && make clean_clang
@@ -62,7 +62,7 @@ ruby extconf.rb
 make
 popd >/dev/null
 
-cat >>~/.bashrc <EOF
+cat >>~/.bashrc <<"EOF"
 export VISUAL=vim
 export EDITOR="$VISUAL"
 EOF
