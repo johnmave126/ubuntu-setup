@@ -67,7 +67,7 @@ docker volume create --name $V2RAY_DATA
 # create container
 docker create --name=v2ray \
               --restart=unless-stopped \
-              -v $V2RAY_DATA:/etc/v2ray:ro \
+              -v $V2RAY_DATA:/etc/v2ray \
               v2fly/v2fly-core
 docker network connect nginx-certbot-network v2ray
 docker cp $TMPFILE v2ray:/etc/v2ray/config.json
