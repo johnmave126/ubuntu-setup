@@ -7,7 +7,7 @@ sudo apt-get install -y vim-nox libncurses5-dev libz3-dev xz-utils \
                         libpthread-workqueue-dev \
                         pkg-config autoconf automake checkinstall \
                         python3-docutils libseccomp-dev libjansson-dev \
-                        libyaml-dev libxml2-dev
+                        libyaml-dev libxml2-dev font-config
 RUBY_VER=$(vim --version | grep -Po '(?<=ruby-)\d+\.\d+')
 LUA=$(vim --version | grep -Po 'lua\d+\.\d+')
 sudo apt-get install -y lib$LUA-dev $LUA ruby$RUBY_VER-dev
