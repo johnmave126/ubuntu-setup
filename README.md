@@ -4,4 +4,4 @@
 A setup script to run whenever I install a new Ubuntu 18.04
 
 ## Usage
-Run `wget -O - https://raw.githubusercontent.com/johnmave126/ubuntu-setup/master/bootstrap.sh | bash`
+Run `bash <(wget -qO- https://raw.githubusercontent.com/johnmave126/ubuntu-setup/master/bootstrap.sh)`
