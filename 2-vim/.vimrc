@@ -10,7 +10,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 " Color Scheme
-Plugin 'sickill/vim-monokai'
+Plugin 'crusoexia/vim-monokai'
 " Indentation detection
 Plugin 'tpope/vim-sleuth'
 " AutoComplete
@@ -44,6 +44,12 @@ Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-obsession'
 Plugin 'dhruvasagar/vim-prosession'
 
+Plugin 'iamcco/markdown-preview.nvim'
+Plugin 'gabrielelana/vim-markdown'
+
+" Rust
+Plugin 'rust-lang/rust.vim'
+
 " Language Plugins
 " ReasonML
 Plugin 'reasonml-editor/vim-reason-plus'
@@ -60,9 +66,6 @@ filetype plugin indent on    " required
 
 " My settings
 syntax on
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
 set nu
 set expandtab
 set ruler
@@ -76,6 +79,8 @@ set smartcase
 set incsearch
 set scrolloff=3
 set hls
+set noswapfile
+
 
 colo monokai
 
@@ -112,9 +117,9 @@ nmap <M-4>   <Plug>AirlineSelectTab4
 function! BufferDelete()
     if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1
         if len(filter(range(1, bufnr('%')), 'buflisted(v:val)')) == 1
-            execute "normal \<Plug>AirlineSelectPrevTab"
-        else
             execute "normal \<Plug>AirlineSelectNextTab"
+        else
+            execute "normal \<Plug>AirlineSelectPrevTab"
         endif
         execute "bd#"
     else
@@ -134,8 +139,10 @@ let g:NERDTreeMinimalUI = 1
 let NERDTreeAutoDeleteBuffer = 1
 let g:mapleader = ","
 map <leader>nn :NERDTreeToggle<cr>
-map <leader>nb :NERDTreeFromBookmark 
+map <leader>nb :NERDTreeFromBookmark
 map <leader>nf :NERDTreeFind<cr>
+
+map <leader>yy :<C-U>silent '<,'>:w !~/yank.sh<CR>:redraw<CR>
 
 " nf-fa-caret_[right, down]
 let g:NERDTreeDirArrowExpandable = "\uf0da"
@@ -158,7 +165,8 @@ augroup END
 " Clean: nf-oct-check
 " Ignored: nf-oct-diff_ignored
 " Unknown: nf-oct-question
-let g:NERDTreeIndicatorMapCustom = {
+" 
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "\uf459",
     \ "Staged"    : "\uf457",
     \ "Untracked" : "\uf41b",
@@ -176,3 +184,35 @@ nmap <F8> :TagbarToggle<CR>
 let g:tagbar_vertical = 15
 highlight link TagbarSignature Keyword
 
+" Markdown Preview
+let g:mkdp_open_to_the_world = 1
+let g:mkdp_open_ip = '0.0.0.0'
+let g:mkdp_port = 2700
+
+function! GetMKDPUrl()
+    if exists('w:mkdp_url')
+        return expand('%f') . '  Preview: ' . w:mkdp_url
+    else
+        return expand('%f')
+    endif
+endfunction
+
+function! EchoUrlToStatusLine(...)
+    if &filetype == 'markdown'
+        let w:airline_section_c = '%{GetMKDPUrl()}'
+    endif
+endfunction
+
+call airline#add_statusline_func('EchoUrlToStatusLine')
+function! g:EchoUrl(url)
+    :echo a:url
+    let w:mkdp_url = a:url
+    :AirlineRefresh
+endfunction
+let g:mkdp_browserfunc = 'g:EchoUrl'
+
+let g:markdown_enable_input_abbreviations = 0
+let g:markdown_enable_spell_checking = 0
+
+let g:rustfmt_command = 'rustfmt +nightly'
+let g:rustfmt_autosave = 1

@@ -40,6 +40,9 @@ sed -e '/colo monokai/d' .vimrc >~/.vimrc
 vim +PluginInstall +qall
 cp -f .vimrc ~/.vimrc
 
+# Copy yank script
+cp -f yank.sh ~/yank.sh
+
 # Setup YCM
 echo -e "\e[1m[vim] \e[0m\e[96msetup YCM\e[0m"
 pushd ~/.vim/bundle/YouCompleteMe >/dev/null
