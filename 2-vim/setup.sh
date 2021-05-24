@@ -46,7 +46,7 @@ cp -f yank.sh ~/yank.sh
 # Setup YCM
 echo -e "\e[1m[vim] \e[0m\e[96msetup YCM\e[0m"
 pushd ~/.vim/bundle/YouCompleteMe >/dev/null
-python3 install.py --all
+python3 install.py --clangd-completer --cs-completer --go-completer --ts-completer --rust-completer
 popd >/dev/null
 
 # Setup color_coded
