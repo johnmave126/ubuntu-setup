@@ -8,7 +8,7 @@ curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 
 # prepare go
 echo -e "\e[1m[languages] \e[0m\e[96mprepare go-lang\e[0m"
-if [[ $(lsb_release -cs) = "focal" ]] then
+if [[ $(lsb_release -cs) = "focal" ]]; then
     sudo apt-get install -y golang-1.14
 else
     sudo add-apt-repository ppa:longsleep/golang-backports
