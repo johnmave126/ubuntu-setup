@@ -27,7 +27,7 @@ cd ctags
 ./autogen.sh
 ./configure
 make
-echo >description-pak <<EOF
+cat >description-pak <<EOF
 ctags
 
 A maintained ctags implementation
