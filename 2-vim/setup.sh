@@ -28,6 +28,8 @@ cd ctags
 ./configure
 make
 echo >description-pak <<EOF
+ctags
+
 A maintained ctags implementation
 EOF
 sudo checkinstall -y --pkgversion="0.0.0~$(date +%Y%m%d)-git" --maintainer="universal-ctags@ctags.io"
