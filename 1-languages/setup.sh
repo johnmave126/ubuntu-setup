@@ -60,9 +60,17 @@ echo -e "\e[1m[languages] \e[0m\e[96minstall typescript\e[0m"
 sudo npm install -g typescript
 
 # after install for haskell
-cat >> ~/.bashrc << "EOF"
+cat >> ~/.profile << "EOF"
 export PATH="~/.cabal/bin:/opt/cabal/3.4/bin:/opt/ghc/9.0.1/bin:$PATH"
 EOF
 export PATH=~/.cabal/bin:/opt/cabal/3.4/bin:/opt/ghc/9.0.1/bin:$PATH
+
+# after install for go
+cat >> ~/.profile << "EOF"
+export GOPATH=$HOME/go
+export PATH="/usr/lib/go-1.14/bin:$PATH"
+EOF
+export GOPATH=$HOME/go
+export PATH=/usr/lib/go-1.14/bin:$PATH
 
 echo -e "\e[1m[languages] \e[0m\e[96mdone\e[0m"
